@@ -1,0 +1,9 @@
+applications:
+- name: GistViewer
+disk_quota: 1024M
+memory: 256M
+host: GistViewer
+domain: mybluemix.net
+command: python GistViewer.py
+path: .
+instances: 1
