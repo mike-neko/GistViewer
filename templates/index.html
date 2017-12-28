@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
+    <style type="text/css">
+        *{
+box-sizing:border-box;
+}
+        html { height: 100%; }
+        body { height: calc(100% - 64px); margin: 0px }
+
+    </style>
+</head>
+<body class="mdc-typography">
+    <header class="mdc-toolbar mdc-toolbar--fixed">
+        <div class="mdc-toolbar__row">
+            <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+                <span class="mdc-toolbar__title">ネタ帳</span>
+            </section>
+            <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+                <!--<i class="fas fa-sign-out-alt material-icons mdc-toolbar__icon"></i>-->
+                <a href="#" class="material-icons mdc-toolbar__icon toggle">Account</a>
+                <!--<div class="mdc-menu-anchor">-->
+                    <!--<div class="mdc-simple-menu" tabindex="-1" id="demo-menu">-->
+                        <!--<ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true" style="transform: scale(1, 1);">-->
+                            <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.069s;">Back</li>-->
+                            <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.124s;">Forward</li>-->
+                            <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.179s;">Reload</li>-->
+                            <!--<li class="mdc-list-divider" role="separator"></li>-->
+                            <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.236s;">Save As...</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </section>
+        </div>
+    </header>
+    <main class="mdc-toolbar-fixed-adjust" style="height: 100%">
+        <div style="height: 100%;">
+            <div style="background: #ddd; resize: horizontal; overflow: auto; min-width: 100px; max-width: 70%; width: 30%; height: 100%; float: left;">
+
+                <ul class="mdc-list mdc-list--two-line mdc-list--dense demo-list">
+                    <li class="mdc-list-item">
+                        <span class="mdc-list-item__text">
+                            Two-line item
+                            <span class="mdc-list-item__secondary-text">Secondary text</span>
+                        </span>
+                        <span class="mdc-list-item__end-detail">
+                            <i class="fas fa-user-secret"></i>
+                        </span>
+                    </li>
+                    <li class="mdc-list-item">
+                        <span class="mdc-list-item__text">
+                            Two-line item
+                            <span class="mdc-list-item__secondary-text">Secondary text</span>
+                        </span>
+                        <span class="mdc-list-item__end-detail">
+                        </span>
+                    </li>
+                    <li class="mdc-list-item">
+                        <span class="mdc-list-item__text">
+                            Two-line item
+                            <span class="mdc-list-item__secondary-text">Secondary text</span>
+                        </span>
+                        <span class="mdc-list-item__end-detail">
+                            <i class="fas fa-user-secret"></i>
+                        </span>
+                    </li>
+                </ul>
+
+            </div>
+            <div style="background: #add; padding: 10px; height: 100%; overflow: scroll;">
+                <div class="" style="display: grid; grid-template-columns: 7fr 1fr; grid-gap: 10px">
+                    <div class="mdc-text-field mdc-text-field--textarea" style="">
+                        <textarea class="mdc-text-field__input" rows="1" cols="1" placeholder="Enter something about yourself"></textarea>
+                    </div>
+                    <button class="mdc-button mdc-button--raised">Update</button>
+                </div>
+                <div>
+                    <div class="mdc-text-field mdc-text-field--fullwidth">
+                        <input class="mdc-text-field__input" type="text" placeholder="Full-Width TextField">
+                    </div>
+                    <div class="mdc-text-field mdc-text-field--textarea" style="">
+                        <textarea class="mdc-text-field__input" rows="30" cols="1" placeholder="Enter something about yourself"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="mdc-text-field mdc-text-field--fullwidth">
+                        <input class="mdc-text-field__input" type="text" placeholder="Full-Width TextField">
+                    </div>
+                    <div class="mdc-text-field mdc-text-field--textarea" style="">
+                        <textarea class="mdc-text-field__input" rows="30" cols="1" placeholder="Enter something about yourself"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="mdc-button mdc-button--raised">Add File</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+<script>
+    window.mdc.autoInit();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="static/index.js"></script>
+</html>
