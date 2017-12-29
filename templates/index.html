@@ -16,7 +16,8 @@ box-sizing:border-box;
     </style>
 </head>
 <body class="mdc-typography">
-    <header class="mdc-toolbar mdc-toolbar--fixed">
+    <div style="height: 100%">
+        <header class="mdc-toolbar mdc-toolbar--fixed">
         <div class="mdc-toolbar__row">
             <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
                 <span class="mdc-toolbar__title">ネタ帳</span>
@@ -38,85 +39,63 @@ box-sizing:border-box;
             </section>
         </div>
     </header>
-    <main class="mdc-toolbar-fixed-adjust" style="height: 100%">
-        <div style="height: 100%;">
-            <div style="background: #ddd; resize: horizontal; overflow: auto; min-width: 100px; max-width: 70%; width: 30%; height: 100%; float: left;">
-
-                <ul class="mdc-list mdc-list--two-line mdc-list--dense demo-list">
-                    <li class="mdc-list-item">
-                        <span class="mdc-list-item__text">
-                            Two-line item
-                            <span class="mdc-list-item__secondary-text">Secondary text</span>
+        <main class="mdc-toolbar-fixed-adjust" style="height: 100%">
+        <!-- リスト部分 -->
+        <div id="gist-list" style="background: #ddd; resize: horizontal; overflow: auto; min-width: 100px; max-width: 70%; width: 30%; height: 100%; float: left;">
+            <ul class="mdc-list mdc-list--two-line mdc-list--dense">
+                <li class="mdc-list-item" v-for="gist in gists">
+                    <span class="mdc-list-item__text">
+                        {{ gist.title }}
+                        <span class="mdc-list-item__secondary-text">
+                            {{ gist.summary }}
                         </span>
-                        <span class="mdc-list-item__end-detail">
-                            <i class="fas fa-user-secret"></i>
-                        </span>
-                    </li>
-                    <li class="mdc-list-item">
-                        <span class="mdc-list-item__text">
-                            Two-line item
-                            <span class="mdc-list-item__secondary-text">Secondary text</span>
-                        </span>
-                        <span class="mdc-list-item__end-detail">
-                        </span>
-                    </li>
-                    <li class="mdc-list-item">
-                        <span class="mdc-list-item__text">
-                            Two-line item
-                            <span class="mdc-list-item__secondary-text">Secondary text</span>
-                        </span>
-                        <span class="mdc-list-item__end-detail">
-                            <i class="fas fa-user-secret"></i>
-                        </span>
-                    </li>
-                </ul>
-
-            </div>
-            <div style="background: #add; padding: 10px; height: 100%; overflow: scroll;">
-                <div class="" style="display: grid; grid-template-columns: 7fr 1fr; grid-gap: 10px">
-                    <div class="mdc-text-field mdc-text-field--textarea" style="">
-                        <textarea class="mdc-text-field__input" rows="1" cols="1" placeholder="Enter something about yourself"></textarea>
-                    </div>
-                    <button class="mdc-button mdc-button--raised">Update</button>
-                </div>
-                <div>
-                    <div class="mdc-text-field mdc-text-field--fullwidth">
-                        <input class="mdc-text-field__input" type="text" placeholder="Full-Width TextField">
-                    </div>
-                    <div class="mdc-text-field mdc-text-field--textarea" style="">
-                        <textarea class="mdc-text-field__input" rows="30" cols="1" placeholder="Enter something about yourself"></textarea>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="mdc-text-field mdc-text-field--fullwidth">
-                        <input class="mdc-text-field__input" type="text" placeholder="Full-Width TextField">
-                    </div>
-
-                    <div id="editor" style="height: 600px"></div>
-                </div>
-
-                <div>
-                    <button class="mdc-button mdc-button--raised">Add File</button>
-                </div>
-            </div>
-
+                    </span>
+                    <span class="mdc-list-item__end-detail">
+                        <i class="fas fa-user-secret" v-if="!gist.public"></i>
+                    </span>
+                </li>
+            </ul>
         </div>
-    </main>
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ext-modelist.js"></script>
-<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-<script>
-    window.mdc.autoInit();
+        <!-- 詳細部分 -->
+        <div id="gist-detail" style="background: #add; padding: 10px; height: 100%; overflow: scroll;">
+            <div class="" style="display: grid; grid-template-columns: 7fr 1fr; grid-gap: 10px">
+                <div class="mdc-text-field mdc-text-field--textarea" style="">
+                    <textarea class="mdc-text-field__input" v-model="title" rows="1" cols="1" placeholder="Enter something about yourself"></textarea>
+                </div>
+                <button class="mdc-button mdc-button--raised">Update</button>
+            </div>
 
-    // TODO: 仮
-    var editor = ace.edit("editor");
-    //var JavaScriptMode = ace.require("ace/mode/javascript").Mode;
-    editor.session.setMode("ace/mode/swift");
-    var modelist = require("ace/ext/modelist");
-    //console.debug(modelist.modesByName);
-</script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="static/index.js"></script>
+            <div v-for="file in files">
+                <div class="mdc-text-field mdc-text-field--fullwidth">
+                    <input class="mdc-text-field__input" type="text" placeholder="Full-Width TextField" v-model="file.name">
+                </div>
+                <div style="height: 600px">{{ file.content }}</div>
+            </div>
+
+            <div>
+                <button class="mdc-button mdc-button--raised">Add File</button>
+            </div>
+        </div>
+
+    </main>
+    </div>
+
+    <!-- script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ext-modelist.js"></script>
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script>
+        window.mdc.autoInit();
+
+        // TODO: 仮
+        // var editor = ace.edit("editor");
+        // //var JavaScriptMode = ace.require("ace/mode/javascript").Mode;
+        // editor.session.setMode("ace/mode/swift");
+        // var modelist = require("ace/ext/modelist");
+        //console.debug(modelist.modesByName);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="%% url_for('static', filename = 'index.js') %%"></script>
+
+</body>
 </html>
