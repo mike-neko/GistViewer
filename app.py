@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
-from flask import Flask, url_for, render_template, redirect
-from flask import session, make_response, request
+from flask import Flask, url_for, render_template, jsonify
+from flask import session, make_response, request, redirect
 from flask_oauthlib.client import OAuth
 from werkzeug import security
 
@@ -108,6 +108,34 @@ def logout():
 def get_github_oauth_token():
     return session.get(SESSION_GITHUB_TOKEN)
 
+
+@app.route('/all')
+def all():
+    # FIXME: error
+    user = github.get('/user').data
+    gist_result = github.get('/gists')\
+
+    gists = [
+        {
+            'id': d['id'],
+            'title': next(iter(d['files'])),
+            'summary': d['description'],
+            'public': d['public'],
+        }
+        for d in gist_result.data
+    ]
+
+    return jsonify(
+        {
+            'user': {
+                'name': user['login'],
+                'url': user['html_url'],
+                'gist': user['gists_url'],
+            },
+            'gists': gists,
+            'detail': None,
+        }
+    )
 
 if __name__ == '__main__':
     app.run(host=host, port=port, debug=DEBUG)

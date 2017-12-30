@@ -16,68 +16,90 @@ box-sizing:border-box;
     </style>
 </head>
 <body class="mdc-typography">
-    <div style="height: 100%">
+    <div id="gist" style="height: 100%">
         <header class="mdc-toolbar mdc-toolbar--fixed">
-        <div class="mdc-toolbar__row">
-            <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-                <span class="mdc-toolbar__title">ネタ帳</span>
-            </section>
-            <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
-                <!--<i class="fas fa-sign-out-alt material-icons mdc-toolbar__icon"></i>-->
-                <a href="#" class="material-icons mdc-toolbar__icon toggle">Account</a>
-                <!--<div class="mdc-menu-anchor">-->
-                    <!--<div class="mdc-simple-menu" tabindex="-1" id="demo-menu">-->
-                        <!--<ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true" style="transform: scale(1, 1);">-->
-                            <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.069s;">Back</li>-->
-                            <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.124s;">Forward</li>-->
-                            <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.179s;">Reload</li>-->
-                            <!--<li class="mdc-list-divider" role="separator"></li>-->
-                            <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.236s;">Save As...</li>-->
-                        <!--</ul>-->
+            <div class="mdc-toolbar__row">
+                <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+                    <span class="mdc-toolbar__title">ネタ帳</span>
+                </section>
+
+                <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+                    <!--<span class=""></span>-->
+                    <!--<i class="fas fa-sign-out-alt material-icons mdc-toolbar__icon"></i>-->
+                    <span class="mdc-toolbar__title">{{ user.name }}</span>
+                    <a :href="user.url" class="mdc-toolbar__icon" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+
+                    <!--<div class="mdc-menu-anchor">-->
+                        <!--<div class="mdc-simple-menu" tabindex="-1" id="demo-menu">-->
+                            <!--<ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true" style="transform: scale(1, 1);">-->
+                                <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.069s;">Back</li>-->
+                                <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.124s;">Forward</li>-->
+                                <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.179s;">Reload</li>-->
+                                <!--<li class="mdc-list-divider" role="separator"></li>-->
+                                <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.236s;">Save As...</li>-->
+                            <!--</ul>-->
+                        <!--</div>-->
                     <!--</div>-->
-                <!--</div>-->
-            </section>
-        </div>
-    </header>
+                </section>
+            </div>
+        </header>
         <main class="mdc-toolbar-fixed-adjust" style="height: 100%">
-        <!-- リスト部分 -->
-        <div id="gist-list" style="background: #ddd; resize: horizontal; overflow: auto; min-width: 100px; max-width: 70%; width: 30%; height: 100%; float: left;">
-            <ul class="mdc-list mdc-list--two-line mdc-list--dense">
-                <li class="mdc-list-item" v-for="gist in gists">
-                    <span class="mdc-list-item__text">
-                        {{ gist.title }}
-                        <span class="mdc-list-item__secondary-text">
-                            {{ gist.summary }}
+            <!-- ダイアログ -->
+            <aside class="mdc-dialog" onclick="">
+                <div class="mdc-dialog__surface">
+                    <header class="mdc-dialog__header">
+                        <h2 class="mdc-dialog__header__title">
+                            Use Google's location service?
+                        </h2>
+                    </header>
+                    <section class="mdc-dialog__body">
+                        Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+                    </section>
+                    <footer class="mdc-dialog__footer">
+                        <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Decline</button>
+                        <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Accept</button>
+                    </footer>
+                </div>
+                <div class="mdc-dialog__backdrop"></div>
+            </aside>
+            <!-- リスト部分 -->
+            <div style="background: #ddd; resize: horizontal; overflow: auto; min-width: 100px; max-width: 70%; width: 30%; height: 100%; float: left;">
+                <ul class="mdc-list mdc-list--two-line mdc-list--dense">
+                    <li class="mdc-list-item" v-for="gist in gists">
+                        <span class="mdc-list-item__text">
+                            {{ gist.title }}
+                            <span class="mdc-list-item__secondary-text">
+                                {{ gist.summary }}
+                            </span>
                         </span>
-                    </span>
-                    <span class="mdc-list-item__end-detail">
-                        <i class="fas fa-user-secret" v-if="!gist.public"></i>
-                    </span>
-                </li>
-            </ul>
-        </div>
-        <!-- 詳細部分 -->
-        <div id="gist-detail" style="background: #add; padding: 10px; height: 100%; overflow: scroll;">
-            <div class="" style="display: grid; grid-template-columns: 7fr 1fr; grid-gap: 10px">
-                <div class="mdc-text-field mdc-text-field--textarea" style="">
-                    <textarea class="mdc-text-field__input" v-model="title" rows="1" cols="1" placeholder="Enter something about yourself"></textarea>
+                        <span class="mdc-list-item__end-detail">
+                            <i class="fas fa-user-secret" v-if="!gist.public"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <!-- 詳細部分 -->
+            <div v-if="detail !== null" style="background: #add; padding: 10px; height: 100%; overflow: scroll;">
+                <div class="" style="display: grid; grid-template-columns: 7fr 1fr; grid-gap: 10px">
+                    <div class="mdc-text-field mdc-text-field--textarea" style="">
+                        <textarea class="mdc-text-field__input" v-model="detail.title" rows="1" cols="1" placeholder="Enter something about yourself"></textarea>
+                    </div>
+                    <button class="mdc-button mdc-button--raised">Update</button>
                 </div>
-                <button class="mdc-button mdc-button--raised">Update</button>
-            </div>
 
-            <div v-for="file in files">
-                <div class="mdc-text-field mdc-text-field--fullwidth">
-                    <input class="mdc-text-field__input" type="text" placeholder="Full-Width TextField" v-model="file.name">
+                <div v-for="file in detail.files">
+                    <div class="mdc-text-field mdc-text-field--fullwidth">
+                        <input class="mdc-text-field__input" type="text" placeholder="Full-Width TextField" v-model="file.name">
+                    </div>
+                    <div style="height: 600px">{{ file.content }}</div>
                 </div>
-                <div style="height: 600px">{{ file.content }}</div>
+
+                <div>
+                    <button class="mdc-button mdc-button--raised">Add File</button>
+                </div>
             </div>
 
-            <div>
-                <button class="mdc-button mdc-button--raised">Add File</button>
-            </div>
-        </div>
-
-    </main>
+        </main>
     </div>
 
     <!-- script -->
@@ -93,9 +115,13 @@ box-sizing:border-box;
         // editor.session.setMode("ace/mode/swift");
         // var modelist = require("ace/ext/modelist");
         //console.debug(modelist.modesByName);
+
+        // var dialog = new mdc.dialog.MDCDialog(document.querySelector('#loading_dialog'));
+        // dialog.show();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="%% url_for('static', filename = 'index.js') %%"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="static/index.js"></script>
 
 </body>
 </html>
