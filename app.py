@@ -113,7 +113,7 @@ def get_github_oauth_token():
 def all():
     # FIXME: error
     user = github.get('/user').data
-    gist_result = github.get('/gists')\
+    gist_result = github.get('/gists')
 
     gists = [
         {
@@ -125,17 +125,41 @@ def all():
         for d in gist_result.data
     ]
 
-    return jsonify(
+    return jsonify({
+        'user': {
+            'name': user['login'],
+            'url': user['html_url'],
+            'gist': user['gists_url'],
+        },
+        'gists': gists,
+        'detail': None,
+    })
+
+@app.route('/item')
+def item():
+    id = request.args.get('id')
+    gist_result = github.get('/gists/{}'.format(id))
+    gist = gist_result.data
+
+    files = [
         {
-            'user': {
-                'name': user['login'],
-                'url': user['html_url'],
-                'gist': user['gists_url'],
-            },
-            'gists': gists,
-            'detail': None,
+            'name': key,
+            'content': val['content'],
+            'language': val['language'],
         }
-    )
+        for key, val in gist['files'].items()
+    ]
+
+    return jsonify({
+        'id': id,
+        'summary': gist['description'],
+        'public': gist['public'],
+        'files': files,
+        'url': gist['html_url'],
+        'created_at': gist['created_at'],
+        'updated_at': gist['updated_at'],
+    })
+
 
 if __name__ == '__main__':
     app.run(host=host, port=port, debug=DEBUG)

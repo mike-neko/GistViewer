@@ -8,32 +8,14 @@ new Vue({
         },
         gists: [],
         detail: null
-        // detail: {
-        //     title: "hoge2",
-        //     files: [
-        //         {
-        //             name: "summary2",
-        //             content: "ssss",
-        //         },
-        //         {
-        //             name: "summary3",
-        //             content: "sssse",
-        //         },
-        //         {
-        //             name: "summary3",
-        //             content: "sssse",
-        //         },
-        //     ],
-        //     public: false,
-        // }
     },
 
     created: function () {
-        this.allLoad();
+        this.fetchAll();
     },
 
     methods: {
-        allLoad: function () {
+        fetchAll: function () {
             var self = this;
             axios.get('/all')
                 .then(function (response) {
@@ -42,6 +24,30 @@ new Vue({
                     self.detail = response.data.detail;
                 });
         // FIXME: error
+        },
+
+        clickList: function (e) {
+            console.log(e);
+            var ele = e.target;
+            while (ele.tagName.toUpperCase() !== 'LI' && ele != null) {
+                ele = ele.parentNode;
+            }
+
+            if (ele != null) {
+                this.fetchItem(ele.attributes[0].value)
+            }
+        },
+
+        fetchItem: function (id) {
+            var self = this;
+            axios.get('/item', {
+                params: {
+                    id: id,
+                }
+            }).then(function (response) {
+                self.detail = response.data;
+            });
+            // FIXME: error
         }
     }
 });
