@@ -91,7 +91,7 @@ box-sizing:border-box;
                     <div class="mdc-text-field mdc-text-field--fullwidth">
                         <input class="mdc-text-field__input" type="text" placeholder="Full-Width TextField" v-model="file.name">
                     </div>
-                    <div class="editor" style="height: 600px" :value="file.language">{{ file.content }}</div>
+                    <editor :content.sync="file.content"></editor>
                 </div>
 
                 <div>
@@ -110,9 +110,6 @@ box-sizing:border-box;
         window.mdc.autoInit();
 
         // TODO: 仮
-        // var editor = ace.edit("editor");
-        // //var JavaScriptMode = ace.require("ace/mode/javascript").Mode;
-        // editor.session.setMode("ace/mode/swift");
         // var modelist = require("ace/ext/modelist");
         //console.debug(modelist.modesByName);
 

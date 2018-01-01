@@ -1,3 +1,43 @@
+var editor_counter = 0;
+
+Vue.component('editor', {
+    template: '<div :id="counter" style="height: 600px">{{ content }}</div>',
+    props: ['content', 'language'],
+
+    data: function () {
+        return {
+            editor: null,
+            beforeContent: '',
+            counter: 'editor_' + editor_counter,
+        }
+    },
+
+    created: function () {
+        editor_counter += 1;
+    },
+
+    mounted: function () {
+        this.editor = window.ace.edit(this.counter);
+        this.editor.session.setMode('ace/mode/' + this.language);
+        this.editor.$blockScrolling = Infinity;
+
+        var self = this;
+        this.editor.on('change', function () {
+            self.beforeContent = self.editor.getValue();
+            self.$emit('update:content', self.editor.getValue())
+        });
+    },
+
+    watch: {
+        'content' (value) {
+            if (this.beforeContent !== value) {
+                this.editor.setValue(value, 1);
+            }
+        }
+    },
+
+});
+
 new Vue({
     el: '#gist',
 
