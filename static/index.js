@@ -18,7 +18,8 @@ Vue.component('editor', {
 
     mounted: function () {
         this.editor = window.ace.edit(this.counter);
-        this.editor.session.setMode('ace/mode/' + this.language);
+        const lang = this.language || 'text';
+        this.editor.session.setMode('ace/mode/' + lang.toLowerCase());
         this.editor.$blockScrolling = Infinity;
 
         var self = this;
@@ -33,7 +34,11 @@ Vue.component('editor', {
             if (this.beforeContent !== value) {
                 this.editor.setValue(value, 1);
             }
-        }
+        },
+        'language' (value) {
+            const lang = value || 'text';
+            this.editor.session.setMode('ace/mode/' + lang.toLowerCase());
+        },
     },
 
 });
@@ -67,7 +72,6 @@ new Vue({
         },
 
         clickList: function (e) {
-            console.log(e);
             var ele = e.target;
             while (ele.tagName.toUpperCase() !== 'LI' && ele != null) {
                 ele = ele.parentNode;
@@ -88,6 +92,27 @@ new Vue({
                 self.detail = response.data;
             });
             // FIXME: error
-        }
+        },
+
+        newItem: function () {
+            // TODO: 編集中チェック
+        //            'id': id,
+        // 'new': False,
+        // 'summary': gist['description'],
+        // 'public': gist['public'],
+        // 'files': files,
+        // 'url': gist['html_url'],
+        // 'created_at': gist['created_at'],
+        // 'updated_at': gist['updated_at'],
+            this.detail = {
+                new: true,
+                summary: '',
+                public: true,
+                files: [{
+                    name: '',
+                    content: '',
+                }],
+            }
+        },
     }
 });

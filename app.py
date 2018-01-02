@@ -152,6 +152,7 @@ def item():
 
     return jsonify({
         'id': id,
+        'new': False,
         'summary': gist['description'],
         'public': gist['public'],
         'files': files,
