@@ -172,5 +172,12 @@ def create_item():
     return _convert_item(gist_result.data)
 
 
+@app.route('/item/<id>', methods=['DELETE'])
+def delete_item(id):
+    # FIXME: check
+    gist_result = github.delete('/gists/{}'.format(id), format='json')
+    return ""
+
+
 if __name__ == '__main__':
     app.run(host=host, port=port, debug=DEBUG)

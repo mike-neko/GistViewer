@@ -108,7 +108,13 @@ new Vue({
         },
 
         deleteItem: function () {
-
+            var self = this;
+            axios.delete('/item/' + this.detail.id)
+                .then(function (response) {
+                    self.detail = null;
+                });
+            // FIXME: error
+            // TODO: リスト更新
         },
 
         addFile: function () {
