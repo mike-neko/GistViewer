@@ -24,17 +24,17 @@ Vue.component('editor', {
 
         var self = this;
         this.editor.on('change', function () {
-            self.beforeContent = self.editor.getValue();
             self.$emit('update:content', self.editor.getValue())
         });
     },
 
     watch: {
         'content' (value) {
-            if (this.beforeContent !== value) {
+            if (this.editor.getValue() !== value) {
                 this.editor.setValue(value, 1);
             }
         },
+
         'language' (value) {
             const lang = value || 'text';
             this.editor.session.setMode('ace/mode/' + lang.toLowerCase());
@@ -96,14 +96,6 @@ new Vue({
 
         newItem: function () {
             // TODO: 編集中チェック
-        //            'id': id,
-        // 'new': False,
-        // 'summary': gist['description'],
-        // 'public': gist['public'],
-        // 'files': files,
-        // 'url': gist['html_url'],
-        // 'created_at': gist['created_at'],
-        // 'updated_at': gist['updated_at'],
             this.detail = {
                 new: true,
                 summary: '',
@@ -113,6 +105,41 @@ new Vue({
                     content: '',
                 }],
             }
+        },
+
+        deleteItem: function () {
+
+        },
+
+        addFile: function () {
+            this.detail.files.push({
+                name: '',
+                content: '',
+            })
+        },
+
+        update: function () {
+
+        },
+
+        create: function (isPublic) {
+            var self = this;
+            var files = {};
+            this.detail.files.forEach(
+                function (file) {
+                    files[file.name] = { content: file.content }
+                }
+            );
+
+            axios.post('/item', {
+                description: self.detail.summary,
+                public: isPublic,
+                files: files,
+            }).then(function (response) {
+                self.detail = response.data;
+            });
+
+            // TODO: リスト更新
         },
     }
 });

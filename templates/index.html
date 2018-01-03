@@ -98,11 +98,13 @@
         <div class="mdc-form-field mdc-form-field--align-end"
              style="display: grid; grid-template-columns: 10fr 1fr 2fr; grid-gap: 10px">
           <div class="mdc-text-field">
-            <input type="text" class="mdc-text-field__input" placeholder="Gist description...">
+            <input type="text" class="mdc-text-field__input" placeholder="Gist description..." v-model="detail.summary">
             <div class="mdc-text-field__bottom-line"></div>
           </div>
-          <i class="fas fa-user-secret" v-show="!gist.public"></i>
-          <button v-if="!detail.new" class="mdc-button mdc-button--raised">Delete</button>
+          <div>
+            <i class="fas fa-user-secret" v-show="!detail.public"></i>
+          </div>
+          <button v-if="!detail.new" class="mdc-button mdc-button--raised" @click="deleteItem">Delete</button>
         </div>
         <span class="mdc-typography--caption">{{ detail.created_at }}</span>
       </div>
@@ -123,7 +125,13 @@
       </div>
       <!-- フッタ部分 -->
       <div>
-        <button class="mdc-button mdc-button--raised">Add File</button>
+        <button class="mdc-button mdc-button--raised" @click="addFile">Add File</button>
+      </div>
+      <div>
+        <button class="mdc-button mdc-button--raised" @click="">Reset</button>
+        <button class="mdc-button mdc-button--raised" v-show="!detail.new" @click="update">Update</button>
+        <button class="mdc-button mdc-button--raised" v-show="detail.new" @click="create('false')">Create secret gist</button>
+        <button class="mdc-button mdc-button--raised" v-show="detail.new" @click="create('true')">Create public gist</button>
       </div>
     </div>
 

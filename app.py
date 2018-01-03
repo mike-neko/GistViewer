@@ -110,7 +110,7 @@ def get_github_oauth_token():
 
 
 @app.route('/all')
-def all():
+def all_item():
     # FIXME: error
     user = github.get('/user').data
     gist_result = github.get('/gists')
@@ -135,12 +135,8 @@ def all():
         'detail': None,
     })
 
-@app.route('/item')
-def item():
-    id = request.args.get('id')
-    gist_result = github.get('/gists/{}'.format(id))
-    gist = gist_result.data
 
+def _convert_item(gist):
     files = [
         {
             'name': key,
@@ -151,7 +147,7 @@ def item():
     ]
 
     return jsonify({
-        'id': id,
+        'id': gist['id'],
         'new': False,
         'summary': gist['description'],
         'public': gist['public'],
@@ -160,6 +156,20 @@ def item():
         'created_at': gist['created_at'],
         'updated_at': gist['updated_at'],
     })
+
+
+@app.route('/item')
+def item():
+    id = request.args.get('id')
+    gist_result = github.get('/gists/{}'.format(id))
+    return _convert_item(gist_result.data)
+
+
+@app.route('/item', methods=['POST'])
+def create_item():
+    # FIXME: check
+    gist_result = github.post('/gists', data=request.json, format='json')
+    return _convert_item(gist_result.data)
 
 
 if __name__ == '__main__':
