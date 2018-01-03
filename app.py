@@ -172,6 +172,13 @@ def create_item():
     return _convert_item(gist_result.data)
 
 
+@app.route('/item/<id>', methods=['PATCH'])
+def update_item(id):
+    # FIXME: check
+    gist_result = github.patch('/gists/{}'.format(id), data=request.json, format='json')
+    return _convert_item(gist_result.data)
+
+
 @app.route('/item/<id>', methods=['DELETE'])
 def delete_item(id):
     # FIXME: check

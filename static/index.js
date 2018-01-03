@@ -52,7 +52,14 @@ new Vue({
             url: ""
         },
         gists: [],
-        detail: null
+        detail: null,
+    },
+
+    computed: {
+        canFileDelete: function () {
+            console.log(this.detail.files.length);
+            return this.detail.files.length > 1
+        },
     },
 
     created: function () {
@@ -89,7 +96,7 @@ new Vue({
                     id: id,
                 }
             }).then(function (response) {
-                self.detail = response.data;
+                self.setDetail(response.data);
             });
             // FIXME: error
         },
@@ -124,8 +131,48 @@ new Vue({
             })
         },
 
-        update: function () {
+        deleteFile: function (index) {
+            var name = this.detail.files[index].beforeName;
+            if (name) {
+                this.detail.deleteFiles.push(name);
+            }
+            this.detail.files.splice(index, 1);
+        },
 
+        update: function () {
+            var self = this;
+            var files = {};
+            this.detail.files.forEach(
+                function (file) {
+                    var d = {
+                        content: file.content,
+                    };
+                    var before = file.beforeName || '';
+                    if (before == '') {
+                        files[file.name] = d;
+                    } else {
+                        if (before != file.name) {
+                            d['filename'] = file.name;
+                        }
+                        files[before] = d;
+                    }
+                }
+            );
+
+            this.detail.deleteFiles.forEach(
+                function (name) {
+                    files[name] = null;
+                }
+            );
+
+            axios.patch('/item/' + this.detail.id, {
+                description: self.detail.summary,
+                files: files,
+            }).then(function (response) {
+                self.setDetail(response.data);
+            });
+
+            // TODO: リスト更新
         },
 
         create: function (isPublic) {
@@ -142,10 +189,20 @@ new Vue({
                 public: isPublic,
                 files: files,
             }).then(function (response) {
-                self.detail = response.data;
+                self.setDetail(response.data);
             });
 
             // TODO: リスト更新
+        },
+
+        setDetail: function (data) {
+            data.files.forEach(
+                function (file) {
+                    file.beforeName = file.name;
+                }
+            );
+            data.deleteFiles = [];
+            this.detail = data;
         },
     }
 });

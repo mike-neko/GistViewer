@@ -109,15 +109,15 @@
         <span class="mdc-typography--caption">{{ detail.created_at }}</span>
       </div>
       <!-- ファイル部分 -->
-      <div v-for="file in detail.files" class="mdc-card">
+      <div v-for="(file, index) in detail.files" class="mdc-card">
         <div class="mdc-form-field mdc-form-field--align-end"
              style="display: grid; grid-template-columns: 7fr 3fr; grid-gap: 10px">
           <div class="mdc-text-field">
             <input type="text" class="mdc-text-field__input" placeholder="Filename including extension..."
                    v-model="file.name">
           </div>
-          <button class="mdc-button">
-            <i class="far fa-trash-alt fa-3x mdc-button--dense" v-show="true"></i>
+          <button class="mdc-button" v-show="canFileDelete" @click="deleteFile(index)">
+            <i class="far fa-trash-alt fa-3x mdc-button--dense"></i>
           </button>
         </div>
 
