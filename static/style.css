@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: calc(100% - 64px);
+  margin: 0;
+}
+
+.full-height {
+  height: 100%;
+}
+
+/* 上書き */
+.mdc-toolbar {
+   /* aceのエディタ対策 */
+   z-index: 10;
+}
+
+.mdc-toolbar__title {
+  cursor: default;
+}
+
+:root {
+  --mdc-theme-primary: #434343;
+  --mdc-theme-primary-light: #6e6e6e;
+  --mdc-theme-primary-dark: #1c1c1c;
+  --mdc-theme-secondary: #cb1b45;
+  --mdc-theme-secondary-light: #ff5970;
+  --mdc-theme-secondary-dark: #93001f;
+  --mdc-theme-background: #eceff1;
+}

@@ -5,30 +5,16 @@
   <title>Title</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+  <link rel="stylesheet" href="/static/style.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
-  <style type="text/css">
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      height: 100%;
-    }
-
-    body {
-      height: calc(100% - 64px);
-      margin: 0px
-    }
-
-  </style>
 </head>
 <body class="mdc-typography">
-<div id="gist" style="height: 100%">
+<div id="gist" class="full-height">
   <!-- メニュー部分 -->
   <header class="mdc-toolbar mdc-toolbar--fixed">
     <div class="mdc-toolbar__row">
       <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-        <span class="mdc-toolbar__title">ネタ帳</span>
+        <span class="mdc-toolbar__title">NetaCho</span>
       </section>
 
       <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
@@ -50,7 +36,7 @@
       </section>
     </div>
   </header>
-  <main class="mdc-toolbar-fixed-adjust" style="height: 100%">
+  <main class="mdc-toolbar-fixed-adjust full-height">
     <!-- ダイアログ -->
     <aside class="mdc-dialog" onclick="">
       <div class="mdc-dialog__surface">
@@ -75,8 +61,8 @@
       <div class="mdc-dialog__backdrop"></div>
     </aside>
     <!-- リスト部分 -->
-    <div
-        style="background: #ddd; resize: horizontal; overflow: auto; min-width: 100px; max-width: 70%; width: 30%; height: 100%; float: left;">
+    <div class="full-height"
+        style="background: #ddd; resize: horizontal; overflow: auto; min-width: 100px; max-width: 70%; width: 30%; float: left;">
       <ul class="mdc-list mdc-list--two-line mdc-list--dense">
         <li class="mdc-list-item" v-for="gist in gists" :value="gist.id" @click="clickList">
                         <span class="mdc-list-item__text">
@@ -92,7 +78,7 @@
       </ul>
     </div>
     <!-- 詳細部分 -->
-    <div v-if="detail !== null" style="background: #add; padding: 10px; height: 100%; overflow: scroll;">
+    <div v-if="detail !== null" class="full-height" style="padding: 10px; overflow: scroll;">
       <!-- ヘッダ部分 -->
       <div class="mdc-card">
         <div class="mdc-form-field mdc-form-field--align-end"
