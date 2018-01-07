@@ -21,6 +21,40 @@ body {
   width: 32px;
 }
 
+.gist-list {
+  border-right: solid var(--mdc-theme-primary-light);
+  float: left;
+  max-width: 70%;
+  min-width: 100px;
+  overflow: auto;
+  resize: horizontal;
+  width: 30%;
+}
+
+.gist-list .mdc-list {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.gist-list-item {
+  border-bottom: 1px solid var(--mdc-theme-primary-light);
+  padding: 0 16px;
+}
+
+.gist-list-item:last-child {
+  border-bottom: none;
+}
+
+.gist-detail {
+  overflow: scroll;
+}
+
+.gist-detail .mdc-card {
+  background: white;
+  margin: 16px;
+  padding: 10px;
+}
+
 /* 上書き */
 .mdc-toolbar {
    /* aceのエディタ対策 */

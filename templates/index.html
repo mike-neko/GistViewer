@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/static/style.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
 </head>
-<body class="mdc-typography">
+<body class="mdc-typography mdc-theme--background">
 <div id="gist" class="full-height">
   <!-- メニュー部分 -->
   <header class="mdc-toolbar mdc-toolbar--fixed">
@@ -60,24 +60,21 @@
       <div class="mdc-dialog__backdrop"></div>
     </aside>
     <!-- リスト部分 -->
-    <div class="full-height"
-        style="background: #ddd; resize: horizontal; overflow: auto; min-width: 100px; max-width: 70%; width: 30%; float: left;">
+    <div class="full-height gist-list">
       <ul class="mdc-list mdc-list--two-line mdc-list--dense">
-        <li class="mdc-list-item" v-for="gist in gists" :value="gist.id" @click="clickList">
-                        <span class="mdc-list-item__text">
-                            {{ gist.title }}
-                            <span class="mdc-list-item__secondary-text">
-                                {{ gist.summary }}
-                            </span>
-                        </span>
+        <li class="mdc-list-item gist-list-item" v-for="gist in gists" :value="gist.id" @click="clickList">
+          <span class="mdc-list-item__text">
+            {{ gist.title }}
+            <span class="mdc-list-item__secondary-text">{{ gist.summary }}&nbsp;</span>
+          </span>
           <span class="mdc-list-item__end-detail">
-                            <i class="fas fa-user-secret" v-if="!gist.public"></i>
-                        </span>
+            <i class="fas fa-user-secret" v-if="!gist.public"></i>
+          </span>
         </li>
       </ul>
     </div>
     <!-- 詳細部分 -->
-    <div v-if="detail !== null" class="full-height" style="padding: 10px; overflow: scroll;">
+    <div v-if="detail !== null" class="gist-detail full-height">
       <!-- ヘッダ部分 -->
       <div class="mdc-card">
         <div class="mdc-form-field mdc-form-field--align-end"
@@ -87,9 +84,9 @@
             <div class="mdc-text-field__bottom-line"></div>
           </div>
           <div>
-            <i class="fas fa-user-secret" v-show="!detail.public"></i>
+            <i v-show="!detail.public" class="fas fa-user-secret"></i>
           </div>
-          <button v-if="!detail.new" class="mdc-button mdc-button--raised" @click="deleteItem">Delete</button>
+          <button v-if="!detail.new" class="mdc-button mdc-button--unelevated mdc-theme--secondary-bg" @click="deleteItem">Delete</button>
         </div>
         <span class="mdc-typography--caption">{{ detail.createdDate }}</span>
       </div>
