@@ -129,6 +129,7 @@ def all_item():
         'user': {
             'name': user['login'],
             'url': user['html_url'],
+            'avatarURL': user['avatar_url'],
             'gist': user['gists_url'],
         },
         'gists': gists,
@@ -153,8 +154,8 @@ def _convert_item(gist):
         'public': gist['public'],
         'files': files,
         'url': gist['html_url'],
-        'created_at': gist['created_at'],
-        'updated_at': gist['updated_at'],
+        'createdDate': gist['created_at'],
+        'updatedDate': gist['updated_at'],
     })
 
 

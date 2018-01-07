@@ -19,20 +19,19 @@
 
       <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
         <span class="mdc-toolbar__icon" @click="newItem"><i class="fas fa-plus-square fa-2x"></i></span>
-        <span class="mdc-toolbar__title">{{ user.name }}</span>
-        <a :href="user.url" class="mdc-toolbar__icon" target="_blank"><i class="fab fa-github fa-2x"></i></a>
 
-        <!--<div class="mdc-menu-anchor">-->
-        <!--<div class="mdc-simple-menu" tabindex="-1" id="demo-menu">-->
-        <!--<ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true" style="transform: scale(1, 1);">-->
-        <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.069s;">Back</li>-->
-        <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.124s;">Forward</li>-->
-        <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.179s;">Reload</li>-->
-        <!--<li class="mdc-list-divider" role="separator"></li>-->
-        <!--<li class="mdc-list-item" role="menuitem" tabindex="0" style="transition-delay: 0.236s;">Save As...</li>-->
-        <!--</ul>-->
-        <!--</div>-->
-        <!--</div>-->
+        <div class="mdc-toolbar__title">
+          <div id="account-menu" class="mdc-simple-menu" tabindex="-1" style="top: 64px; float: right;">
+            <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true">
+              <li class="mdc-list-item" role="menuitem">Sign out</li>
+            </ul>
+          </div>
+          <span id="account-button" class="toolbar-icon">{{ user.name }}</span>
+        </div>
+
+        <a :href="user.url" class="mdc-toolbar__title mdc-toolbar__icon" target="_blank">
+          <img :src=user.avatarURL class="toolbar-icon clickable">
+        </a>
       </section>
     </div>
   </header>
@@ -92,7 +91,7 @@
           </div>
           <button v-if="!detail.new" class="mdc-button mdc-button--raised" @click="deleteItem">Delete</button>
         </div>
-        <span class="mdc-typography--caption">{{ detail.created_at }}</span>
+        <span class="mdc-typography--caption">{{ detail.createdDate }}</span>
       </div>
       <!-- ファイル部分 -->
       <div v-for="(file, index) in detail.files" class="mdc-card">
@@ -128,8 +127,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ext-modelist.js"></script>
 <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="static/index.js"></script>
 <script>
-    window.mdc.autoInit();
+  mdc.autoInit();
 
     // TODO: 仮
     // var modelist = require("ace/ext/modelist");
@@ -137,10 +139,19 @@
 
     // var dialog = new mdc.dialog.MDCDialog(document.querySelector('#loading_dialog'));
     // dialog.show();
+
+  let menuEle = document.querySelector('#account-menu');
+  let menu = new mdc.menu.MDCSimpleMenu(menuEle);
+  document.querySelector('#account-button').addEventListener('click', () => menu.open = !menu.open);
+  menuEle.addEventListener('MDCSimpleMenu:selected', function (e) {
+      console.log(e.detail);
+      switch (e.detail.index) {
+          case 0:
+              location.replace('/logout');
+              break;
+      }
+  });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="static/index.js"></script>
 
 </body>
 </html>

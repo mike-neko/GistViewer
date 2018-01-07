@@ -15,6 +15,12 @@ body {
   height: 100%;
 }
 
+.toolbar-icon {
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+}
+
 /* 上書き */
 .mdc-toolbar {
    /* aceのエディタ対策 */

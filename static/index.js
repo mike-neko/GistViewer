@@ -49,7 +49,8 @@ new Vue({
     data: {
         user: {
             name: "",
-            url: ""
+            url: "",
+            avatarUrl: "",
         },
         gists: [],
         detail: null,
