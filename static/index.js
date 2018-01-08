@@ -48,17 +48,26 @@ new Vue({
 
     data: {
         user: {
-            name: "",
-            url: "",
-            avatarUrl: "",
+            name: '',
+            url: '',
+            avatarUrl: '',
         },
         gists: [],
         detail: null,
     },
 
     computed: {
+        dateString: function () {
+            if (this.detail) {
+                var create = moment(this.detail.createdDate);
+                var update = moment(this.detail.updatedDate);
+                return 'Created: ' + create.format('YYYY-M-D HH:mm')
+                    + ' / Updated: ' + update.fromNow();
+            } else {
+                return '';
+            }
+        },
         canFileDelete: function () {
-            console.log(this.detail.files.length);
             return this.detail.files.length > 1
         },
     },

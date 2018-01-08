@@ -8,6 +8,8 @@ from werkzeug import security
 SESSION_GITHUB_TOKEN = 'github_token'
 COOKIE_LOGGED_IN = 'logged_in'
 
+APP_TITLE = 'NetaCho'
+
 app = Flask(__name__, instance_relative_config=True)
 # オプション設定
 app.config.from_pyfile('api.cfg')
@@ -59,7 +61,7 @@ else:
 @app.route('/')
 def index():
     if SESSION_GITHUB_TOKEN in session:
-        return render_template('index.html')
+        return render_template('index.html', title=APP_TITLE)
     else:
         logged = request.cookies.get(COOKIE_LOGGED_IN)
         if logged is not None and logged == 'true':

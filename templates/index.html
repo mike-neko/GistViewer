@@ -2,7 +2,7 @@
 <html lang="jp">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>%% title %%</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
   <link rel="stylesheet" href="/static/style.css">
@@ -14,7 +14,7 @@
   <header class="mdc-toolbar mdc-toolbar--fixed">
     <div class="mdc-toolbar__row">
       <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-        <span class="mdc-toolbar__title">NetaCho</span>
+        <span class="mdc-toolbar__title">%% title %%</span>
       </section>
 
       <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
@@ -77,18 +77,29 @@
     <div v-if="detail !== null" class="gist-detail full-height">
       <!-- ヘッダ部分 -->
       <div class="mdc-card">
-        <div class="mdc-form-field mdc-form-field--align-end"
-             style="display: grid; grid-template-columns: 10fr 1fr 2fr; grid-gap: 10px">
-          <div class="mdc-text-field">
-            <input type="text" class="mdc-text-field__input" placeholder="Gist description..." v-model="detail.summary">
-            <div class="mdc-text-field__bottom-line"></div>
+        <div v-if="!detail.new" class="mdc-typography--caption">
+          <div style="float: left">
+            <div>
+              <span v-if="!detail.public"><i class="fas fa-user-secret fa-lg"></i></span>
+              <span>
+                <a :href="detail.url" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+              </span>
+              <span>{{ detail.id }}</span>
+            </div>
+            <span>{{ dateString }}</span>
           </div>
-          <div>
-            <i v-show="!detail.public" class="fas fa-user-secret"></i>
-          </div>
-          <button v-if="!detail.new" class="mdc-button mdc-button--unelevated mdc-theme--secondary-bg" @click="deleteItem">Delete</button>
+
+          <button v-if="!detail.new"
+                  class="mdc-button mdc-button--unelevated mdc-button--dense mdc-theme--secondary-bg"
+                  style="float: right"
+                  @click="deleteItem">Delete</button>
         </div>
-        <span class="mdc-typography--caption">{{ detail.createdDate }}</span>
+
+        <hr>
+        <div class="mdc-text-field" style="width: 100%">
+          <input type="text" class="mdc-text-field__input" placeholder="Gist description..." v-model="detail.summary">
+          <div class="mdc-text-field__bottom-line"></div>
+        </div>
       </div>
       <!-- ファイル部分 -->
       <div v-for="(file, index) in detail.files" class="mdc-card">
@@ -123,6 +134,7 @@
 <!-- script -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ext-modelist.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
