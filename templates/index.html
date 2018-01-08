@@ -86,7 +86,7 @@
               </span>
               <span>{{ detail.id }}</span>
             </div>
-            <span>{{ dateString }}</span>
+            <span class="mdc-theme--text-secondary-on-background">{{ dateString }}</span>
           </div>
 
           <button v-if="!detail.new"
@@ -96,20 +96,19 @@
         </div>
 
         <hr>
-        <div class="mdc-text-field" style="width: 100%">
+        <div class="mdc-text-field full-width">
           <input type="text" class="mdc-text-field__input" placeholder="Gist description..." v-model="detail.summary">
           <div class="mdc-text-field__bottom-line"></div>
         </div>
       </div>
       <!-- ファイル部分 -->
       <div v-for="(file, index) in detail.files" class="mdc-card">
-        <div class="mdc-form-field mdc-form-field--align-end"
-             style="display: grid; grid-template-columns: 7fr 3fr; grid-gap: 10px">
-          <div class="mdc-text-field">
-            <input type="text" class="mdc-text-field__input" placeholder="Filename including extension..."
-                   v-model="file.name">
+        <div class="mdc-form-field mdc-form-field--align-end">
+          <div class="mdc-text-field full-width">
+            <input type="text" class="mdc-text-field__input"
+                   placeholder="Filename including extension..." v-model="file.name">
           </div>
-          <button class="mdc-button" v-show="canFileDelete" @click="deleteFile(index)">
+          <button v-if="canFileDelete" class="mdc-button" @click="deleteFile(index)">
             <i class="far fa-trash-alt fa-3x mdc-button--dense"></i>
           </button>
         </div>
@@ -117,10 +116,10 @@
         <editor :content.sync="file.content" :language="file.language"></editor>
       </div>
       <!-- フッタ部分 -->
-      <div>
-        <button class="mdc-button mdc-button--raised" @click="addFile">Add File</button>
+      <div class="button-block">
+        <button class="mdc-button mdc-button--stroked mdc-button--dense full-width" @click="addFile">Add File</button>
       </div>
-      <div>
+      <div class="button-block">
         <button class="mdc-button mdc-button--raised" @click="">Reset</button>
         <button class="mdc-button mdc-button--raised" v-show="!detail.new" @click="update">Update</button>
         <button class="mdc-button mdc-button--raised" v-show="detail.new" @click="create('false')">Create secret gist</button>

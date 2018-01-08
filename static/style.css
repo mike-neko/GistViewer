@@ -27,6 +27,10 @@ a:hover {
   height: 100%;
 }
 
+.full-width {
+  width: 100%;
+}
+
 .toolbar-icon {
   cursor: pointer;
   height: 32px;
@@ -34,7 +38,8 @@ a:hover {
 }
 
 .gist-list {
-  border-right: solid var(--mdc-theme-primary-light);
+  border-right: 1px solid var(--mdc-theme-border);
+  box-shadow: 2px 0 4px -1px rgba(0,0,0,.2);
   float: left;
   max-width: 70%;
   min-width: 100px;
@@ -49,7 +54,7 @@ a:hover {
 }
 
 .gist-list-item {
-  border-bottom: 1px solid var(--mdc-theme-primary-light);
+  border-bottom: 1px solid var(--mdc-theme-border);
   cursor: pointer;
   padding: 0 16px;
 }
@@ -76,6 +81,11 @@ a:hover {
   padding: 8px;
 }
 
+.gist-detail .button-block {
+  padding: 0 16px 16px 16px;
+  width: 100%;
+}
+
 .mdc-card span {
   margin-right: 0.5em;
   padding-top: 1em;
@@ -85,7 +95,6 @@ a:hover {
   vertical-align: -1px;
 }
 
-/* 上書き */
 .mdc-toolbar {
    /* aceのエディタ対策 */
    z-index: 10;
@@ -93,6 +102,10 @@ a:hover {
 
 .mdc-toolbar__title {
   cursor: default;
+}
+
+.ace_editor {
+  border: 1px solid var(--mdc-theme-border);
 }
 
 :root {
@@ -103,4 +116,6 @@ a:hover {
   --mdc-theme-secondary-light: #ff5970;
   --mdc-theme-secondary-dark: #93001f;
   --mdc-theme-background: #eceff1;
+
+  --mdc-theme-border: rgba(110, 110, 110, 0.5)  /* #6e6e6e */
 }
