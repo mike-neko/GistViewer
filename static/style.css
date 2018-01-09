@@ -82,6 +82,7 @@ a:hover {
 }
 
 .gist-detail .button-block {
+  overflow: auto;
   padding: 0 16px 16px 16px;
   width: 100%;
 }

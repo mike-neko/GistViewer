@@ -67,7 +67,7 @@
             {{ gist.title }}
             <span class="mdc-list-item__secondary-text">{{ gist.summary }}&nbsp;</span>
           </span>
-          <span class="mdc-list-item__end-detail">
+          <span class="mdc-list-item__meta">
             <i class="fas fa-user-secret" v-if="!gist.public"></i>
           </span>
         </li>
@@ -120,10 +120,14 @@
         <button class="mdc-button mdc-button--stroked mdc-button--dense full-width" @click="addFile">Add File</button>
       </div>
       <div class="button-block">
-        <button class="mdc-button mdc-button--raised" @click="">Reset</button>
-        <button class="mdc-button mdc-button--raised" v-show="!detail.new" @click="update">Update</button>
-        <button class="mdc-button mdc-button--raised" v-show="detail.new" @click="create('false')">Create secret gist</button>
-        <button class="mdc-button mdc-button--raised" v-show="detail.new" @click="create('true')">Create public gist</button>
+        <div style="float: left">
+          <button class="mdc-button mdc-button--stroked mdc-theme--secondary" @click="">Reset</button>
+        </div>
+        <div style="float: right">
+          <button v-show="!detail.new" class="mdc-button mdc-button--raised" @click="update">Update</button>
+          <button v-show="detail.new" class="mdc-button mdc-button--raised" @click="create('false')">Create secret gist</button>
+          <button v-show="detail.new" class="mdc-button mdc-button--raised" @click="create('true')">Create public gist</button>
+        </div>
       </div>
     </div>
 
