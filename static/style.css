@@ -39,7 +39,7 @@ a:hover {
 
 .gist-list {
   border-right: 1px solid var(--mdc-theme-border);
-  box-shadow: 2px 0 4px -1px rgba(0,0,0,.2);
+  box-shadow: 2px 0 4px -1px rgba(0, 0, 0, 0.2);
   float: left;
   max-width: 70%;
   min-width: 100px;
@@ -85,6 +85,12 @@ a:hover {
   overflow: auto;
   padding: 0 16px 16px 16px;
   width: 100%;
+}
+
+.gist-detail .button-block .normal-bg-color {
+  background-color: var(--mdc-theme-background);
+  border: 2px solid var(--mdc-theme-primary-light);
+  color: var(--mdc-theme-primary);
 }
 
 .mdc-card span {
