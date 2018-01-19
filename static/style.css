@@ -93,7 +93,7 @@ a:hover {
   color: var(--mdc-theme-primary);
 }
 
-.mdc-card span {
+.mdc-card .icon-span {
   margin-right: 0.5em;
   padding-top: 1em;
 }

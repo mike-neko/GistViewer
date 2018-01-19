@@ -24,18 +24,20 @@ Vue.component('editor', {
 
         var self = this;
         this.editor.on('change', function () {
-            self.$emit('update:content', self.editor.getValue())
+            var value = self.editor.getValue();
+            self.$emit('update:content', value);
+            self.beforeContent = value;
         });
     },
 
     watch: {
-        'content' (value) {
-            if (this.editor.getValue() !== value) {
+        'content': function (value) {
+            if (this.beforeContent !== value) {
                 this.editor.setValue(value, 1);
             }
         },
 
-        'language' (value) {
+        'language': function (value) {
             const lang = value || 'text';
             this.editor.session.setMode('ace/mode/' + lang.toLowerCase());
         },

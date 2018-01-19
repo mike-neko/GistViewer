@@ -80,8 +80,8 @@
         <div v-if="!detail.new" class="mdc-typography--caption">
           <div style="float: left">
             <div>
-              <span v-if="!detail.public"><i class="fas fa-user-secret fa-lg"></i></span>
-              <span>
+              <span v-if="!detail.public" class="icon-span"><i class="fas fa-user-secret fa-lg"></i></span>
+              <span class="icon-span">
                 <a :href="detail.url" target="_blank"><i class="fab fa-github fa-lg"></i></a>
               </span>
               <span>{{ detail.id }}</span>
