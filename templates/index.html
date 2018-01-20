@@ -62,7 +62,7 @@
     <!-- リスト部分 -->
     <div class="full-height gist-list">
       <ul class="mdc-list mdc-list--two-line mdc-list--dense">
-        <li class="mdc-list-item gist-list-item" v-for="gist in gists" :value="gist.id" @click="clickList">
+        <li class="mdc-list-item gist-list-item" v-for="gist in gists" :class="{ selected: gist.id == selectedId }" :value="gist.id" @click="clickList">
           <span class="mdc-list-item__text">
             {{ gist.title }}
             <span class="mdc-list-item__secondary-text">{{ gist.summary }}&nbsp;</span>
@@ -74,7 +74,7 @@
       </ul>
     </div>
     <!-- 詳細部分 -->
-    <div v-if="detail !== null" class="gist-detail full-height">
+    <div id="gist-detail" v-if="detail !== null" class="gist-detail full-height">
       <!-- ヘッダ部分 -->
       <div class="mdc-card">
         <div v-if="!detail.new" class="mdc-typography--caption">

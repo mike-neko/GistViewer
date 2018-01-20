@@ -55,6 +55,7 @@ new Vue({
             avatarUrl: '',
         },
         gists: [],
+        selectedId: '',
         detail: null,
     },
 
@@ -109,6 +110,11 @@ new Vue({
                 }
             }).then(function (response) {
                 self.setDetail(response.data);
+
+                var ele = window.document.getElementById("gist-detail");
+                if (ele) {
+                    ele.scrollTo(0, 0);
+                }
             });
             // FIXME: error
         },
@@ -123,7 +129,10 @@ new Vue({
                     name: '',
                     content: '',
                 }],
+                id: '',
             }
+
+            this.setDetail(this.detail);
         },
 
         deleteItem: function () {
@@ -215,6 +224,7 @@ new Vue({
             );
             data.deleteFiles = [];
             this.detail = data;
+            this.selectedId = data.id;
         },
     }
 });

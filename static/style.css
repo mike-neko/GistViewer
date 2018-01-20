@@ -64,11 +64,11 @@ a:hover {
 }
 
 .gist-list-item:hover {
-  background: rgba(255, 89, 112, 0.2);
+  background: rgba(255, 89, 112, 0.7);
 }
 
-.gist-list-item .selected {
-  background: rgba(255, 89, 112, 0.7);
+.gist-list .selected {
+  background: rgba(255, 89, 112, 0.2);
 }
 
 .gist-detail {
