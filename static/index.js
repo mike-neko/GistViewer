@@ -26,6 +26,7 @@ Vue.component('editor', {
         this.editor.on('change', function () {
             var value = self.editor.getValue();
             self.$emit('update:content', value);
+            self.$emit('change', value);
             self.beforeContent = value;
         });
     },
@@ -55,8 +56,12 @@ new Vue({
             avatarUrl: '',
         },
         gists: [],
-        selectedId: '',
+
         detail: null,
+
+        selectedId: '',
+        isEdited: false,
+        initialDetail: null,
     },
 
     computed: {
@@ -130,7 +135,7 @@ new Vue({
                     content: '',
                 }],
                 id: '',
-            }
+            };
 
             this.setDetail(this.detail);
         },
@@ -149,7 +154,8 @@ new Vue({
             this.detail.files.push({
                 name: '',
                 content: '',
-            })
+            });
+            this.isEdited = true;
         },
 
         deleteFile: function (index) {
@@ -158,6 +164,7 @@ new Vue({
                 this.detail.deleteFiles.push(name);
             }
             this.detail.files.splice(index, 1);
+            this.isEdited = true;
         },
 
         update: function () {
@@ -225,6 +232,13 @@ new Vue({
             data.deleteFiles = [];
             this.detail = data;
             this.selectedId = data.id;
+            this.isEdited = false;
+            this.initialDetail = data;  // FIXME: copy
         },
+
+        reset: function () {
+            this.setDetail(this.initialDetail);
+            this.isEdited = false;
+        }
     }
 });

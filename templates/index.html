@@ -97,7 +97,7 @@
 
         <hr>
         <div class="mdc-text-field full-width">
-          <input type="text" class="mdc-text-field__input" placeholder="Gist description..." v-model="detail.summary">
+          <input type="text" class="mdc-text-field__input" placeholder="Gist description..." v-model="detail.summary" @change="isEdited = true">
           <div class="mdc-text-field__bottom-line"></div>
         </div>
       </div>
@@ -106,14 +106,14 @@
         <div class="mdc-form-field mdc-form-field--align-end">
           <div class="mdc-text-field full-width">
             <input type="text" class="mdc-text-field__input"
-                   placeholder="Filename including extension..." v-model="file.name">
+                   placeholder="Filename including extension..." v-model="file.name" @change="isEdited = true">
           </div>
           <button v-if="canFileDelete" class="mdc-button mdc-theme--secondary" @click="deleteFile(index)">
             <i class="far fa-trash-alt fa-3x mdc-button--dense"></i>
           </button>
         </div>
 
-        <editor :content.sync="file.content" :language="file.language"></editor>
+        <editor :content.sync="file.content" :language="file.language" @change="isEdited = true"></editor>
       </div>
       <!-- フッタ部分 -->
       <div class="button-block">
@@ -121,12 +121,12 @@
       </div>
       <div class="button-block">
         <div style="float: left">
-          <button class="mdc-button mdc-button--raised mdc-theme--secondary-light normal-bg-color" @click="">Reset</button>
+          <button class="mdc-button mdc-button--raised mdc-theme--secondary-light" @click="reset" :disabled="!isEdited">Reset</button>
         </div>
         <div style="float: right">
-          <button v-show="!detail.new" class="mdc-button mdc-button--raised" @click="update">Update</button>
-          <button v-show="detail.new" class="mdc-button mdc-button--raised" @click="create('false')">Create secret gist</button>
-          <button v-show="detail.new" class="mdc-button mdc-button--raised mdc-theme--secondary-light" @click="create('true')">Create public gist</button>
+          <button v-show="!detail.new" class="mdc-button mdc-button--raised" @click="update" :disabled="!isEdited">Update</button>
+          <button v-show="detail.new" class="mdc-button mdc-button--raised" @click="create('false')" :disabled="!isEdited">Create secret gist</button>
+          <button v-show="detail.new" class="mdc-button mdc-button--raised mdc-theme--secondary-light" @click="create('true')" :disabled="!isEdited">Create public gist</button>
         </div>
       </div>
     </div>
