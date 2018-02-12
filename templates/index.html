@@ -155,7 +155,7 @@
   let menuEle = document.querySelector('#account-menu');
   let menu = new mdc.menu.MDCMenu(menuEle);
   document.querySelector('#account-button').addEventListener('click', () => menu.open = !menu.open);
-  menuEle.addEventListener('MDCSimpleMenu:selected', function (e) {
+  menuEle.addEventListener('MDCMenu:selected', function (e) {
       console.log(e.detail);
       switch (e.detail.index) {
           case 0:
